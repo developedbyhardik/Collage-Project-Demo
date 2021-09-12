@@ -1,0 +1,59 @@
+@font-face {
+  font-family: "dank_monoregular";
+  src: url("fonts/dank_mono_regular_thefontsmaster.com-webfont.woff2")
+      format("woff2"),
+    url("fonts/dank_mono_regular_thefontsmaster.com-webfont.woff")
+      format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: #f3f4ed;
+  font-family: "dank_monoregular", sans-serif;
+}
+a {
+  text-decoration: none;
+  color: white;
+}
+ul {
+  list-style: none;
+}
+*::-webkit-scrollbar {
+  width: 5px;
+}
+*::-webkit-scrollbar-thumb {
+  background: #646262;
+  border-radius: 0.5rem;
+}
+form {
+  width: 30vw;
+}
+label {
+  display: block;
+  text-align: left;
+}
+input {
+  padding: 5px;
+  display: block;
+  margin: 10px 0;
+  width: 100%;
+}
+input[type="submit"] {
+  width: 100%;
+  margin-top: 20px;
+}
+
+a {
+  font-size: 18px;
+  border-bottom: 2px solid transparent;
+}
+a:hover {
+  border-bottom: 2px solid white;
+}
