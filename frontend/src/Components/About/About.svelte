@@ -1,5 +1,5 @@
 <script>
-    let result;
+   
 async function runHere(){
     try {
       const res = fetch("https://api.hardik.dev/test", {
@@ -9,11 +9,15 @@ async function runHere(){
       console.error(error);
     }
 }
+
+import Internship from "../Interniship/Internship.svelte";
 </script>
 
+<div class="about">
 
-<button on:click={runHere}>Hello There</button>
+  <Internship/>
+</div>
 
-{#if result}
-  {result}
-{/if}
+<style>
+
+</style>

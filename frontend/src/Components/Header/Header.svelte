@@ -3,16 +3,16 @@
   import { Router, Link } from "svelte-routing";
 
   let result;
-async function runHere(){
+  async function runHere() {
     try {
       const res = fetch("https://api.hardik.dev/test", {
         method: "POST",
       });
-      console.log(res)
+      console.log(res);
     } catch (error) {
       console.error(error);
     }
-}
+  }
 </script>
 
 <Router>
@@ -40,19 +40,27 @@ async function runHere(){
     left: 0;
     display: flex;
     align-items: center;
-    padding: 0 1.5rem;
+    padding: 0 clamp(5px,0.2vw,20px);
   }
   .logo {
-    width: 70%;
-    padding-left: 2rem;
+    width: calc(70% - 5vw);
+    padding-left: clamp(5px,2vw,35px);
   }
   h2 {
     color: white;
   }
   ul {
     display: flex;
-    width: 30%;
+    width: calc(30% + 5vw);
     justify-content: space-around;
   }
   
+  @media screen and (max-width: 850px) {
+    .logo {
+      width: calc(30% - 3vw);
+    }
+    ul {
+      width: calc(70% + 3vw);
+    }
+  }
 </style>

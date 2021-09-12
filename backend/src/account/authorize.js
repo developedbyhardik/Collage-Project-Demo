@@ -21,6 +21,7 @@ export async function authorizeUser(email, password) {
     return {
       isAuthorized,
       userId: userData._id,
+      userName:userData.name
     };
   } catch (error) {
     console.error(error);

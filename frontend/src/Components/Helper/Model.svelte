@@ -26,6 +26,7 @@
   .card {
     position: relative;
     text-align: center;
+    border: 2px solid black;
   }
   .background {
     position: absolute;
@@ -33,7 +34,7 @@
     height: 100%;
     z-index: -1;
     opacity: 0.8;
-    background: linear-gradient(142deg, #ff5470 3.62%, #00ebc7 100%);
+    background: linear-gradient(130deg, #524763 80%, #f3f4ed 20%);
   }
   .card {
   padding: 2em;
@@ -67,7 +68,7 @@
   position: absolute;
   top: calc(var(--size) / 2 * -1);
   right: 10px;
-  border: 2px solid white;
+  border: 2px solid black;
 }
 
   

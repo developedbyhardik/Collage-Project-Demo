@@ -2,9 +2,12 @@
   let email;
   let password;
 
+  import { isLogIn ,user} from "../Store/Login.js";
+  import { toggleLogIn} from "../Store/CommonFunc.js";
+
   async function register() {
     try {
-      const res = fetch("https://api.hardik.dev/api/authorize", {
+      const res = await fetch("https://api.hardik.dev/api/authorize", {
         method: "POST",
         credentials: "include",
         body: JSON.stringify({
@@ -13,6 +16,16 @@
         }),
         headers: { "Content-type": "application/json" },
       });
+
+      const {data} = await res.json();
+   
+
+      if (data.login) {
+      toggleLogIn()
+      isLogIn.set(data.login);
+      user.set(data.user)
+      console.log($user)
+     }
     } catch (error) {
       console.error(error);
     }
@@ -21,7 +34,7 @@
 
 <div class="login">
   <form action="">
-    <h3>Log In</h3>
+    <h2>Log In</h2>
     <label for="email"
       >Email
       <input
@@ -46,8 +59,3 @@
   </form>
 </div>
 
-<style>
-  h3 {
-    margin-bottom: 20px;
-  }
-</style>

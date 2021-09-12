@@ -19,14 +19,14 @@ export async function registerUser(name, email, password) {
       });
       //Return user From Database
       return {
-        registered:true,
+        registered: true,
         message: "You are successfully registered",
-        userId:result
-      };``
+        userId: result.insertedId,
+      };
     }
 
     return {
-        registered:false,
+      registered: false,
       message: "User Already Exist",
     };
   } catch (error) {

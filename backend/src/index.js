@@ -15,7 +15,7 @@ import { connectDB } from "./db.js";
 import { registerUser } from "./account/registerUser.js";
 import { authorizeUser } from "./account/authorize.js";
 import { logUserIn } from "./account/logUserIn.js";
-import {getUserFromCookies} from './account/user.js'
+import { getUserFromCookies } from "./account/user.js";
 
 const app = fastify();
 
@@ -40,14 +40,23 @@ async function startApp() {
           request.body.password
         );
 
-        await logUserIn(res.userId, request, reply);
-        reply.send({
-          data: {
-            status: "SUCCESS",
-            userId:res.userId,
-          },
-        });
+        if (res.registered) {
+          await logUserIn(res.userId, request, reply);
+          reply.send({
+            data: {
+              registered: true,
+              status: "SUCCESS",
+              user: {
+                name: request.body.name,
+                email: request.body.email,
+              },
+            },
+          });
+        }
 
+        reply.send({
+          data: { registered: false, status: "User Already Exists" },
+        });
       } catch (error) {
         console.error(error);
       }
@@ -55,7 +64,7 @@ async function startApp() {
 
     app.post("/api/authorize", {}, async (request, reply) => {
       try {
-        const { isAuthorized, userId } = await authorizeUser(
+        const { isAuthorized, userId,userName } = await authorizeUser(
           request.body.email,
           request.body.password
         );
@@ -63,12 +72,19 @@ async function startApp() {
         if (isAuthorized) {
           await logUserIn(userId, request, reply);
           reply.send({
-            data: "User Logged In",
+            data: {
+              login: true,
+              status: "SUCCESS",
+              user:{
+                name:userName,
+                email:request.body.email
+              }
+            },
           });
         }
 
         reply.send({
-          data: "Auth Failed",
+          data: { login: false, status: "Incorrect Email / Password" },
         });
       } catch (error) {
         console.error(error);
@@ -79,7 +95,7 @@ async function startApp() {
       try {
         //varify user login
         const user = await getUserFromCookies(request, reply);
-        console.log('user:', user)
+        console.log("user:", user);
         if (user?._id) {
           reply.send({
             data: user,
