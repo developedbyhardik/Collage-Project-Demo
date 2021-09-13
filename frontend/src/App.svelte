@@ -1,43 +1,48 @@
 <script>
-  import { Router, Route } from "svelte-routing";
+  import { Router, Route, navigate } from "svelte-routing";
 
   import Home from "./Components/Home/Home.svelte";
   import Header from "./Components/Header/Header.svelte";
-  import {
-    isLogIn,
-    isLoginClick,
-    isSignUpClick,
-    isRegistered,
-  } from "./Components/Store/Login.js";
   import Model from "./Components/Helper/Model.svelte";
-  import { toggleLogIn, toggleSignUp } from "./Components/Store/CommonFunc";
   import Login from "./Components/Login/Login.svelte";
   import Register from "./Components/Login/Register.svelte";
   import About from "./Components/About/About.svelte";
-  import Details from "./Components/Details/Details.svelte";
-import Internship from "./Components/Interniship/Internship.svelte";
+  import Internship from "./Components/Interniship/Internship.svelte";
 
+  (async () => {
+    const res = await fetch("https://api.hardik.dev/test", {
+      method: "GET",
+      credentials: "include",
+    });
+
+    const data = await res.json();
+    if (data.login) {
+      navigate('internship')
+    }
+  })();
 </script>
 
 <Router>
+  <Route path="/login">
+    <Model path="/">
+      <Login />
+    </Model>
+  </Route>
+  <Route path="/sign-up">
+    <Model path="/">
+      <Register />
+    </Model></Route
+  >
   <Route path="/">
-    {#if $isLoginClick}
-      <Model toggleModal={toggleLogIn}>
-        <Login />
-      </Model>
-    {:else if $isSignUpClick}
-      <Model toggleModal={toggleSignUp}>
-        <Register />
-      </Model>
-    {:else if $isRegistered | $isLogIn}
-      <Internship/>
-    {:else}
-      <Header />
-      <Home />
-    {/if}
+    <Header />
+    <Home />
   </Route>
 
   <Route path="about">
     <About />
+  </Route>
+  <Route path="internship">
+    <Header />
+    <Internship />
   </Route>
 </Router>

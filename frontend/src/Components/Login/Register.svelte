@@ -5,6 +5,7 @@
 
   import { isRegistered ,user} from "../Store/Login.js";
   import { toggleSignUp } from "../Store/CommonFunc.js";
+import { navigate } from "svelte-routing";
 
   async function register() {
     try {
@@ -25,6 +26,7 @@
       toggleSignUp()
       isRegistered.set(data.registered);
       user.set(data.user)
+      navigate('internship')
      }
     } catch (error) {
       console.error(error);

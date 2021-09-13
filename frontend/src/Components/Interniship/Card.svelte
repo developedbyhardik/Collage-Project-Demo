@@ -14,6 +14,5 @@
         border-radius: 15px;
         cursor: pointer;
         margin: 20px;
-        border: 2px solid black;
     }
 </style>

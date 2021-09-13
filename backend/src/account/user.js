@@ -7,27 +7,30 @@ const { JWT_SIGNATURE, ROOT_DOMAIN } = process.env;
 
 export async function getUserFromCookies(request, reply) {
   try {
-    const { user,session } = await import("../data/data.js");
+    const { user, session } = await import("../data/data.js");
     //Check if accessToken is exists
-    console.log(request.cookies)
     if (request?.cookies?.accessToken) {
       //if accessToken
+
       const { accessToken } = request.cookies;
-      console.log('accessToken:', accessToken)
 
       //decode accessToken
       const decodedAccessToken = jwt.verify(accessToken, JWT_SIGNATURE);
 
       //return user from record
-      const userData = await user.findOne({
+      const { name, email } = await user.findOne({
         _id: ObjectId(decodedAccessToken?.userId),
       });
-      return userData;
+      return {
+        name,
+        email,
+      };
     }
 
     //Check if refreshToken is exists
     else if (request?.cookies?.refreshToken) {
       //if refreshToken
+
       const { refreshToken } = request.cookies;
 
       //decode accessToken
@@ -40,7 +43,7 @@ export async function getUserFromCookies(request, reply) {
       //confirm session is valid
       if (currentSession.valid) {
         //LookUp current User
-        const currentUser = await user.findOne({
+        const { name, email } = await user.findOne({
           _id: currentSession.userId,
         });
         await refreshTokens(
@@ -50,7 +53,7 @@ export async function getUserFromCookies(request, reply) {
         );
 
         //return user
-        return currentUser;
+        return { name, email };
       }
     }
   } catch (error) {
@@ -84,4 +87,3 @@ export async function refreshTokens(sessionToken, userId, reply) {
       secure: true,
     });
 }
-

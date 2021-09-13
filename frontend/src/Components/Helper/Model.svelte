@@ -1,15 +1,17 @@
 <script>
+import { navigate } from 'svelte-routing';
+
     import { scale, fly } from 'svelte/transition';
-    export let toggleModal;
+    export let path;
   </script>
   
   
   <div class="modal">
     <div class="card" transition:fly={{y: 40}}>
-      <button on:click={toggleModal} class="drawer--close">X</button>
+      <button on:click={navigate(path)} class="drawer--close">X</button>
       <slot />
     </div>
-    <div on:click={toggleModal} transition:scale={{ start: 1.5, duration: 1000 }} class="background" />
+    <div on:click={navigate(path)} transition:scale={{ start: 1.5, duration: 1000 }} class="background" />
   </div>
   
   <style>
@@ -34,7 +36,7 @@
     height: 100%;
     z-index: -1;
     opacity: 0.8;
-    background: linear-gradient(130deg, #524763 80%, #f3f4ed 20%);
+    background: linear-gradient(130deg, #524763 50%, #f3f4ed 50%);
   }
   .card {
   padding: 2em;

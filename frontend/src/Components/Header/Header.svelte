@@ -23,8 +23,8 @@
 
     <ul>
       <li><Link to="about">About Us</Link></li>
-      <li><Link to="/" on:click={toggleLogIn}>Login</Link></li>
-      <li><Link to="/" on:click={toggleSignUp}>Sign Up</Link></li>
+      <li><Link to="/login" on:click={toggleLogIn}>Login</Link></li>
+      <li><Link to="/sign-up" on:click={toggleSignUp}>Sign Up</Link></li>
     </ul>
   </header>
 </Router>

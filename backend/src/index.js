@@ -91,17 +91,18 @@ async function startApp() {
       }
     });
 
-    app.post("/test", {}, async (request, reply) => {
+    app.get("/test", {}, async (request, reply) => {
       try {
         //varify user login
         const user = await getUserFromCookies(request, reply);
-        console.log("user:", user);
-        if (user?._id) {
+        if (user?.name) {
           reply.send({
+            login:true,
             data: user,
           });
         } else {
           reply.send({
+            login:false,
             data: "User LookUp Failed",
           });
         }
