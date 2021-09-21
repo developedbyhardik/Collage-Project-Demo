@@ -26,7 +26,7 @@ import { navigate } from "svelte-routing";
       toggleSignUp()
       isRegistered.set(data.registered);
       user.set(data.user)
-      navigate('internship')
+      navigate('login')
      }
     } catch (error) {
       console.error(error);

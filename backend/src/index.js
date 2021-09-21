@@ -16,6 +16,7 @@ import { registerUser } from "./account/registerUser.js";
 import { authorizeUser } from "./account/authorize.js";
 import { logUserIn } from "./account/logUserIn.js";
 import { getUserFromCookies } from "./account/user.js";
+import {logUserOut} from './account/logUserOut.js'
 
 const app = fastify();
 
@@ -25,7 +26,7 @@ async function startApp() {
       root: path.join(__dirname, "public"),
     });
     app.register(fastifyCors, {
-      origin: [/\.hardik.dev/, "https://hardik.dev"],
+      origin: [/\.localhost:3000/, "http://localhost:3000"],
       credentials: true,
     });
     app.register(fastifyCookie, {
@@ -41,21 +42,17 @@ async function startApp() {
         );
 
         if (res.registered) {
-          await logUserIn(res.userId, request, reply);
           reply.send({
+            registered: true,
             data: {
-              registered: true,
-              status: "SUCCESS",
-              user: {
-                name: request.body.name,
-                email: request.body.email,
-              },
+              name: request.body.name,
+              email: request.body.email,
             },
           });
         }
 
         reply.send({
-          data: { registered: false, status: "User Already Exists" },
+          data: { registered: false, data: {} },
         });
       } catch (error) {
         console.error(error);
@@ -64,7 +61,7 @@ async function startApp() {
 
     app.post("/api/authorize", {}, async (request, reply) => {
       try {
-        const { isAuthorized, userId,userName } = await authorizeUser(
+        const { isAuthorized, userId, userName } = await authorizeUser(
           request.body.email,
           request.body.password
         );
@@ -72,22 +69,35 @@ async function startApp() {
         if (isAuthorized) {
           await logUserIn(userId, request, reply);
           reply.send({
+            login: true,
+
             data: {
-              login: true,
-              status: "SUCCESS",
-              user:{
-                name:userName,
-                email:request.body.email
-              }
+              name: userName,
+              email: request.body.email,
             },
           });
         }
 
         reply.send({
-          data: { login: false, status: "Incorrect Email / Password" },
+          login: false,
+          data: {},
         });
       } catch (error) {
         console.error(error);
+      }
+    });
+
+    app.post("/api/logout", {}, async (request, reply) => {
+      try {
+        await logUserOut(request, reply);
+        reply.send({
+          logout:true
+        });
+      } catch (error) {
+        console.error(error);
+        reply.send({
+          logout:false,
+        });
       }
     });
 
@@ -97,21 +107,25 @@ async function startApp() {
         const user = await getUserFromCookies(request, reply);
         if (user?.name) {
           reply.send({
-            login:true,
+            login: true,
             data: user,
           });
         } else {
           reply.send({
-            login:false,
+            login: false,
             data: "User LookUp Failed",
           });
         }
+        reply.send({
+          login: false,
+          data: {},
+        });
       } catch (error) {
         throw new Error(error);
       }
     });
 
-    await app.listen(3000);
+    await app.listen(5000);
     console.log("🚀🚀");
   } catch (error) {
     console.error(error);

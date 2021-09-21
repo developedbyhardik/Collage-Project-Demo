@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import { createTokens } from "./tokens.js";
 
 const { ObjectId } = mongo;
-const { JWT_SIGNATURE, ROOT_DOMAIN } = process.env;
+const { JWT_SIGNATURE } = process.env;
 
 export async function getUserFromCookies(request, reply) {
   try {
@@ -11,16 +11,17 @@ export async function getUserFromCookies(request, reply) {
     //Check if accessToken is exists
     if (request?.cookies?.accessToken) {
       //if accessToken
-
       const { accessToken } = request.cookies;
 
       //decode accessToken
       const decodedAccessToken = jwt.verify(accessToken, JWT_SIGNATURE);
+      
 
       //return user from record
       const { name, email } = await user.findOne({
-        _id: ObjectId(decodedAccessToken?.userId),
+        _id: ObjectId(decodedAccessToken.userId),
       });
+
       return {
         name,
         email,
@@ -43,19 +44,21 @@ export async function getUserFromCookies(request, reply) {
       //confirm session is valid
       if (currentSession.valid) {
         //LookUp current User
-        const { name, email } = await user.findOne({
+        const currentUser = await user.findOne({
           _id: currentSession.userId,
         });
+
         await refreshTokens(
           decodedRefreshToken.sessionToken,
           currentUser._id,
           reply
-        );
+          );
 
         //return user
-        return { name, email };
+        return { name:currentUser.name , email:currentUser.email};
       }
     }
+    return { login: false };
   } catch (error) {
     throw new Error(error);
   }
@@ -76,14 +79,12 @@ export async function refreshTokens(sessionToken, userId, reply) {
     .setCookie("refreshToken", refreshToken, {
       httpOnly: true,
       path: "/",
-      domain: ROOT_DOMAIN,
+      domain: "localhost",
       expires: refreshExpires,
-      secure: true,
     })
     .setCookie("accessToken", accessToken, {
-      httpOnly: true,
       path: "/",
-      domain: ROOT_DOMAIN,
-      secure: true,
+      domain: "localhost",
+      httpOnly: true,
     });
 }
