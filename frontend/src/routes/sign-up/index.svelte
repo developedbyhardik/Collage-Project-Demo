@@ -7,7 +7,7 @@
 	import { toggleSignUp } from '$lib/Store/CommonFunc.js';
 	import Model from '$lib/Helper/Model.svelte';
 	import { goto } from '$app/navigation';
-
+	import { alert } from '$lib/Store/massage.js';
 	async function register() {
 		try {
 			const res = await fetch('http://localhost:5000/api/register', {
@@ -28,6 +28,7 @@
 				isRegistered.set({ registered: data.registered, data: data.data });
 				goto('login');
 			}
+			alert.set({ text: data.text, isActive: true, color: data.color });
 		} catch (error) {
 			console.error(error);
 		}

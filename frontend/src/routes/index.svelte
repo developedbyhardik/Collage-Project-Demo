@@ -1,5 +1,6 @@
 <script>
 	import { goto } from '$app/navigation';
+import Toast from '$lib/Helper/Toast.svelte';
 
 	import Home from '$lib/Home/Home.svelte';
 	import { isLogIn } from '$lib/Store/Login.js';

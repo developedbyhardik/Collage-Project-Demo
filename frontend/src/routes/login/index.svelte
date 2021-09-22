@@ -6,6 +6,7 @@
 	import { toggleLogIn } from '$lib/Store/CommonFunc.js';
 	import Model from '$lib/Helper/Model.svelte';
 	import { goto } from '$app/navigation';
+	import { alert } from '$lib/Store/massage.js';
 
 	async function register() {
 		try {
@@ -26,6 +27,7 @@
 				isLogIn.set({ login: data.login, data: data.data });
 				goto('/internship');
 			}
+			alert.set({ text: data.text, isActive: true, color: data.color });
 		} catch (error) {
 			console.error(error);
 		}

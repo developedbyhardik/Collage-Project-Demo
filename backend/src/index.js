@@ -16,7 +16,7 @@ import { registerUser } from "./account/registerUser.js";
 import { authorizeUser } from "./account/authorize.js";
 import { logUserIn } from "./account/logUserIn.js";
 import { getUserFromCookies } from "./account/user.js";
-import {logUserOut} from './account/logUserOut.js'
+import { logUserOut } from "./account/logUserOut.js";
 
 const app = fastify();
 
@@ -44,6 +44,8 @@ async function startApp() {
         if (res.registered) {
           reply.send({
             registered: true,
+            text: res.message,
+            color: "#32cd32",
             data: {
               name: request.body.name,
               email: request.body.email,
@@ -52,7 +54,11 @@ async function startApp() {
         }
 
         reply.send({
-          data: { registered: false, data: {} },
+          registered: false,
+          text: res.message,
+          color: "#ff4040",
+
+          data: {},
         });
       } catch (error) {
         console.error(error);
@@ -70,7 +76,8 @@ async function startApp() {
           await logUserIn(userId, request, reply);
           reply.send({
             login: true,
-
+            color: "#32cd32",
+            text: "You Are Successfully logged In",
             data: {
               name: userName,
               email: request.body.email,
@@ -80,6 +87,8 @@ async function startApp() {
 
         reply.send({
           login: false,
+          color: "#ff4040",
+          text: "Incorrect Email or Password",
           data: {},
         });
       } catch (error) {
@@ -91,12 +100,12 @@ async function startApp() {
       try {
         await logUserOut(request, reply);
         reply.send({
-          logout:true
+          logout: true,
         });
       } catch (error) {
         console.error(error);
         reply.send({
-          logout:false,
+          logout: false,
         });
       }
     });

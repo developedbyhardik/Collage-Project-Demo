@@ -21,7 +21,6 @@ export async function registerUser(name, email, password) {
       return {
         registered: true,
         message: "You are successfully registered",
-        userId: result.insertedId,
       };
     }
 

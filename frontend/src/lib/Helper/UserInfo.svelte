@@ -4,6 +4,7 @@ import { goto } from '$app/navigation';
 	import { isLogIn } from '$lib/Store/Login';
 
 	import { fly } from 'svelte/transition';
+	import { alert } from '$lib/Store/massage.js';
 
 	export let name;
 
@@ -17,6 +18,7 @@ import { goto } from '$app/navigation';
 			const data = await res.json();
 			if (data.logout) {
 				isLogIn.set({ login: false, data: {} });
+				alert.set({ text: 'You Are Successfully Logged Out', isActive: true, color: '#32cd32' });
 				goto('/')
 			}
 		} catch (error) {

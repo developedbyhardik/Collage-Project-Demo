@@ -57,7 +57,7 @@
 		padding: 0 clamp(5px, 0.2vw, 20px);
 	}
 	.logo {
-		width: calc(70% - 5vw);
+		width: calc(70% - 8vw);
 		padding-left: clamp(5px, 2vw, 35px);
 		cursor: pointer;
 	}
@@ -66,12 +66,16 @@
 	}
 	ul {
 		display: flex;
-		width: calc(30% + 5vw);
+		width: calc(30% + 8vw);
 		justify-content: space-around;
 	}
-	.about{
+	.about {
 		display: flex;
 		align-items: center;
+		font-weight: bold;
+	}
+	.about a {
+		font-size: clamp(14px, 2vw, 18px);
 	}
 
 	@media screen and (max-width: 850px) {
