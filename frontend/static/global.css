@@ -39,7 +39,7 @@ ul {
   border-radius: 0.5rem;
 }
 form {
-  width: clamp(220px,50vw,500px);
+  width: clamp(220px,30vw,300px);
 }
 label {
   display: block;
@@ -67,8 +67,22 @@ input[type="submit"] {
 
 a {
   font-size: 18px;
-  border-bottom: 2px solid transparent;
+  border: 2px solid transparent;
 }
-a:hover {
-  border-bottom: 2px solid white;
+
+
+button{
+  outline: none;
+  padding: 10px 20px;
+  background-color: white;
+  cursor: pointer;
+  border-radius: 10px;
+  color: #524763;
+  font-family: "dank_monoregular", sans-serif;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.2s ease-in-out all;
+}
+button:hover{
+  transform: scale(0.95);
 }

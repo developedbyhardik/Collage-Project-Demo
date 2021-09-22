@@ -40,13 +40,12 @@ import { goto } from '$app/navigation';
 		left: 0;
 		z-index: -1;
 		opacity: 0.8;
-		background: linear-gradient(130deg, #524763 50%, #f3f4ed 50%);
+		background: #f3f4ed;
 	}
 	.card {
 		padding: 2em;
 		background: white;
-		box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
-			rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+		box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
 		border-radius: 15px;
 	}
 

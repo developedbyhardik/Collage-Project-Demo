@@ -25,9 +25,9 @@
 		{/if}
 	{:else}
 		<ul>
-			<li><a href="about">About Us</a></li>
-			<li><a href="/login" on:click={toggleLogIn}>Login</a></li>
-			<li><a href="/sign-up" on:click={toggleSignUp}>Sign Up</a></li>
+			<li class="about"><a href="/about">About Us</a></li>
+			<li><a href="/login" on:click={toggleLogIn}><button>Login</button></a></li>
+			<li><a href="/sign-up" on:click={toggleSignUp}><button>Sign Up</button></a></li>
 		</ul>
 	{/if}
 </header>
@@ -68,6 +68,10 @@
 		display: flex;
 		width: calc(30% + 5vw);
 		justify-content: space-around;
+	}
+	.about{
+		display: flex;
+		align-items: center;
 	}
 
 	@media screen and (max-width: 850px) {
