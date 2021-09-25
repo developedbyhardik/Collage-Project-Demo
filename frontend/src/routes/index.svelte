@@ -1,6 +1,5 @@
 <script>
 	import { goto } from '$app/navigation';
-import Toast from '$lib/Helper/Toast.svelte';
 
 	import Home from '$lib/Home/Home.svelte';
 	import { isLogIn } from '$lib/Store/Login.js';
@@ -11,12 +10,11 @@ import Toast from '$lib/Helper/Toast.svelte';
 			credentials: 'include'
 		});
 		const data = await res.json();
-		console.log('data:', data)
 
 		isLogIn.set({ login: data.login, data: data.data });
-		console.log($isLogIn);
+
 		if (data.login) {
-			goto('/internship'); 
+			goto('/internship');
 		}
 	})();
 </script>

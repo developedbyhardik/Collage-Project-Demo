@@ -11,6 +11,9 @@
   </div>
   
   <style>
+    h1{
+      text-align: center;
+    }
     .wrapper {
       max-width: 95%;
       margin: 0 auto;

@@ -1,5 +1,5 @@
 <script>
-	import Footer from '../Footer/Footer.svelte';
+import Footer from '../Footer/Footer.svelte';
 
 	import Company from '../Home/Company.svelte';
 </script>

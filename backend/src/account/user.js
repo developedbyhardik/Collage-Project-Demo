@@ -21,6 +21,7 @@ export async function getUserFromCookies(request, reply) {
       const { name, email } = await user.findOne({
         _id: ObjectId(decodedAccessToken.userId),
       });
+      console.log('name, email:', name, email)
 
       return {
         name,

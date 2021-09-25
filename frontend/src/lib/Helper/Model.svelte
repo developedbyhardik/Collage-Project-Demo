@@ -18,10 +18,10 @@ import { goto } from '$app/navigation';
 
 <style>
 	.modal {
-		position: fixed;
+		/* position: fixed; */
 		display: flex;
 		width: 100%;
-		height: 90vh;
+		min-height: 90vh;
 		left: 0;
 		bottom: 0;
 		align-items: center;
@@ -35,7 +35,7 @@ import { goto } from '$app/navigation';
 	.background {
 		position: absolute;
 		width: 100%;
-		height: 90vh;
+		min-height: 90vh;
 		bottom: 0;
 		left: 0;
 		z-index: -1;
